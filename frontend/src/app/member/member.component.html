@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="generator" content="Mobirise v4.12.1, mobirise.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <link rel="shortcut icon" href="../assets/images/logo4.png" type="image/x-icon">
+    <meta name="description" content="Web Site Builder Description">
+
+    <title>member</title>
+
+</head>
+
+<body>
+
+    <section class="team1 cid-rQLoK7Jyya" id="team1-b">
+        <div class="col-md-12 input-group-btn  mt-2 align-right" ><i
+                class="icon-plus-sign icon-4x" style="color:rgb(5, 155, 255);" (click)="openDialog()"></i></div>
+
+        <div class="container align-center">
+            <h2 class="pb-3 mbr-fonts-style mbr-section-title display-2">MEMBER</h2>
+
+            <div class="row media-row">
+
+                <div *ngFor="let member of memberList;" class="team-item col-lg-3 col-md-6">
+                    <div class="item-image">
+                        <img [src]="member.img" alt="" title="">
+                    </div>
+                    <div class="item-caption py-3">
+                        <div class="item-name px-2">
+                            <p class="mbr-fonts-style display-5">
+                                {{member.name}}</p>
+                        </div>
+                        <div class="item-role px-2">
+                            <p>Strategy {{member.strategy}}</p>
+                        </div>
+                        <div class="item-social pt-2">
+                            <mat-checkbox [(ngModel)]="member.isJoin" (click)="join(member)">Join!</mat-checkbox>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+</body>
+
+</html>
