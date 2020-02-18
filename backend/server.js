@@ -3,7 +3,8 @@ const cors = require('cors')
 const app = express()
 const bodyParser = require('body-parser')
 const MongoClient = require('mongodb').MongoClient
-
+const path = require('path');
+const helmet = require('helmet');
 var db
 
 // Remember to change YOUR_USERNAME and YOUR_PASSWORD to your username and password! 
@@ -18,7 +19,14 @@ MongoClient.connect('mongodb://159.138.146.96:27017/bad', (err, database) => {
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }))
 app.use(bodyParser.json({ limit: '50mb', extended: true }))
-app.use(express.static('public'))
+app.use(helmet());
+
+const directory = path.resolve(__dirname, '../frontend/dist/bad/');
+app.use(express.static(directory));
+app.get('/*', (req, res, next) => {
+  res.sendFile(directory);
+});
+
 app.use(cors())
 
 app.get('/members', (req, res) => {
