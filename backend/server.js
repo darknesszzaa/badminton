@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }))
 app.use(bodyParser.json({ limit: '50mb', extended: true }))
 app.use(helmet());
 
-const directory = path.resolve(__dirname, '../frontend/dist/bad/');
+const directory = path.resolve(__dirname, './dist/bad/');
 app.use(express.static(directory));
 app.get('/*', (req, res, next) => {
   res.sendFile(directory);
