@@ -16,14 +16,14 @@ MongoClient.connect('mongodb://159.138.146.96:27017/bad', (err, database) => {
   })
 })
 
-app.set('view engine', 'ejs')
+// app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }))
 app.use(bodyParser.json({ limit: '50mb', extended: true }))
 app.use(helmet());
 
 const directory = path.resolve(__dirname, './dist/bad/');
 app.use(express.static(directory));
-app.get('/*', (req, res, next) => {
+app.get('/', (req, res, next) => {
   res.sendFile(directory);
 });
 
@@ -100,7 +100,8 @@ app.post('/add-member', async (req, res) => {
 })
 
 app.post('/member-join', async (req, res) => {
-  await db.collection('members').updateOne({ name: req.body.name }, { $set: { isJoin: req.body.isJoin } }, function (err, res) {
+  var ObjectId = require('mongodb').ObjectID;
+  await db.collection('members').updateOne({ _id: new ObjectId(req.body._id) }, { $set: { isJoin: req.body.isJoin } }, function (err, res) {
   });
   res.send(true);
 })
