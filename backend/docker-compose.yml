@@ -1,8 +1,26 @@
-version: '3'
+version: "3"
+
 services:
   badminton:
     container_name: badminton
     build: .
-    image: badminton
+    restart: always
+    image: badminton:1.0.0
     ports:
       - 3000:3000
+    env_file:
+      - .env
+    environment:
+      - MONGO_CONNECTION_URL=mongodb://mongo:27017/badminton
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo:latest
+    restart: always
+    environment:
+      - MONGODB_DATABASE="badminton"
+    ports:
+      - 27017:27017
+
+   
+      
