@@ -5,6 +5,7 @@ import * as YAML from 'yamljs';
 import { AppModule } from './app.module';
 import * as fs from 'fs';
 import * as path from 'path';
+import express = require('express');
 
 async function bootstrap() {
 
@@ -20,6 +21,14 @@ async function bootstrap() {
     },
     cors: true,
   });
+
+  const appExpress = express();
+  const directory = path.resolve(__dirname, './../dist/bad');
+  appExpress.use(express.static(directory));
+  appExpress.get('/', (req, res, next) => {
+    res.sendFile('/', { root: directory });
+  });
+
   app.useGlobalPipes(new ValidationPipe());
   const swaggerDocument = YAML.load('./swagger.yaml');
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
