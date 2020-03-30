@@ -12,6 +12,8 @@ export class MemberComponent implements OnInit {
   memberList = [];
   constructor(private memberService: MemberService, public dialog: MatDialog) { }
   public ngOnInit() {
+    console.log('xxxxxxxxxx')
+    window.top.close();
     this.memberService.getMembers().subscribe((data) => {
       this.memberList = data;
     });
@@ -26,6 +28,15 @@ export class MemberComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.ngOnInit();
     });
+  }
+
+  async closeCurrentTab() {
+    console.log('xxxxxxxxxxxx')
+    var conf = confirm("Are you sure, you want to close this tab?");
+    if (conf == true) {
+      var customWindow = await window.open('', '_salf', '');
+      customWindow.close();
+    }
   }
 
   public join(input) {

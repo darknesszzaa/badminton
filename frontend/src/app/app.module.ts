@@ -8,14 +8,13 @@ import { MemberComponent } from './member/member.component';
 import { HistoryComponent } from './history/history.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
 import { AddMemberComponent } from './add-member/add-member.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from './material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -28,6 +27,7 @@ import { MatSliderModule } from '@angular/material/slider';
     MemberComponent,
     HistoryComponent,
     HomeComponent,
+    LoginComponent,
     AddMemberComponent
   ],
   imports: [

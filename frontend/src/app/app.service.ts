@@ -13,8 +13,14 @@ export class MemberService {
     this.apiURL = environment.apiURL;
   }
 
+  public login(): Observable<any> {
+    let url = this.apiURL + '/authen/signin';
+    return this.http.post<any>(url, { username: 'admin', pword: 'P@ssw0rd' });
+  }
+
+
   public getMembers(): Observable<any> {
-    let url = this.apiURL + '/members';
+    let url = this.apiURL + '/users';
     return this.http.get<any>(url);
   }
 
@@ -34,7 +40,7 @@ export class MemberService {
   }
 
   public join(input): Observable<any> {
-    let data = Object.assign({},input)
+    let data = Object.assign({}, input)
     data.isJoin = !data.isJoin
     let url = this.apiURL + '/member-join';
     return this.http.post<any>(url, data);
