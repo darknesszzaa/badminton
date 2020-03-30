@@ -1,6 +1,8 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import * as swaggerUi from 'swagger-ui-express';
+import * as cookieParser from 'cookie-parser';
+import * as helmet from 'helmet';
 import * as YAML from 'yamljs';
 import { AppModule } from './app.module';
 import * as fs from 'fs';
@@ -25,7 +27,7 @@ async function bootstrap() {
   const appExpress = express();
   const directory = path.resolve(__dirname, './../dist/bad');
   appExpress.use(express.static(directory));
-  appExpress.get('/', (req, res, next) => {
+  appExpress.get('/home', (req, res, next) => {
     res.sendFile('/', { root: directory });
   });
 
@@ -33,6 +35,12 @@ async function bootstrap() {
   const swaggerDocument = YAML.load('./swagger.yaml');
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
+  // Express Style Middleware
+  app.use(cookieParser()); // attaches cookies to request object
+  app.use(helmet()); // applies security hardening settings. using defaults: https://www.npmjs.com/package/helmet
+  app.use(appExpress);
+
+  console.log('Server running on port ', process.env.SERVER_PORT)
   await app.listen(process.env.SERVER_PORT);
 }
 bootstrap();
